@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bon de commande</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+.topnav {
+  padding: 10px;
+}
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #f1f1f1;
+  color: black;
+}
+</style>
+</head>
+<body>
+
+
+<div class="topnav">
+  <table>
+    <tr>
+      <td ><img src="C:\Users\ANASS\Desktop\SFE\GS\stock\static\assets\images\logo.png" width="150" height="100"></td>
+      <td align="right">
+        WMS Entrepot <br>
+        adazddza<br>
+        455 Foggy Heights, AZ 85004, US<br>
+        (602) 519-0450<br>
+        company@example.com
+      </td>
+    </tr>
+  </table>
+</div>
+
+<hr>
+
+
+
+<div class="topnav">
+  <table>
+    <tr>
+      <td align="left">
+          Moyen de transport<br>
+          {{ devis.Transport }}<br>
+          Marque : {{ devis.Type_Transport }}<br>
+          Chauffeur : {{ devis.Chauffeur }}<br>
+          Matricule : {{ devis.Matricule }}<br>
+          Date sortie : {{ devis.Date_Sortie }}
+      </td>
+      <td align="right">
+          {{ devis.ID_Client.ID_Client }}<br>
+          {{ devis.ID_Client.Entreprise }}<br>
+          Adresse : {{ devis.ID_Client.Adresse }},<br>
+          {{ devis.ID_Client.Description }}<br>
+          Email : {{ devis.ID_Client.Email }}<br>
+          Tel : {{ devis.ID_Client.Tel }}<br>
+          Date commande : {{ devis.Date_Devis }}
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="topnav">
+  <table>
+    <tr>
+      <td>
+      </td>
+      <td>
+      <h1>Bon de commande : {{ ID_Devis }}</h1>
+      </td>
+      <td>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="topnav">
+<table id="customers">
+
+<thead>
+<tr>
+<th>Article</th>
+<th>Quantite</th>
+<th>Prix</th>
+<th>total</th>
+</tr>
+</thead>
+<tbody>
+{% for detaildevi in vs %}
+<tr>
+<td>{{ detaildevi.detaildevi.ID_Article }}</td>
+<td>{{ detaildevi.detaildevi.Quantite }}</td>
+<td>{{ detaildevi.detaildevi.Prix }} DH</td>
+<td>{{ detaildevi.Montant }} DH</td>
+</tr>
+{% endfor %}
+</tbody>
+<tfoot>
+<tr>
+<td colspan="3" style="text-align: right;">solde total :</td>
+<td>${{ Montant }}</td>
+</tr>
+</tfoot>
+
+</table>
+</div>
+
+</body>
+</html>

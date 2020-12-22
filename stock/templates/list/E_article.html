@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Articles{% endblock %}
+{% block article %}active{% endblock %}
+{% block gestion %}active{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-12 mt-5">
+		<div class="card">
+			<div class="card-body">
+				<div class="invoice-head">
+					<div class="row">
+						<div class="iv-left col-6">
+							<span>Liste des articles</span>
+						</div>
+						<div class="iv-right col-6 text-md-right">
+							<span><a href="{% url 'addarticle' %}"><button type="button" class="btn btn-flat btn-dark mb-3"><i class="fa fa-plus"></i> &nbsp;Ajouter</button></a></span>
+						</div>
+					</div>
+				</div>
+				<div class="single-table">
+					<div class="table-responsive">
+						<table class="table table-hover progress-table text-center">
+							<thead class="text-uppercase">
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Tag RFID</th>
+									<th scope="col">Nom</th>
+									<th scope="col">Description</th>
+									<th scope="col">Prix Unitaire</th>
+									<th scope="col">Fournisseur</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for article in articles %}
+									<tr>
+										<td>
+											<img class="avatar user-thumb" src="{% static 'assets/images/author.jpg' %}" alt="avatar" width="50">
+										</td>
+										<td>{{ article.ID_Article }}</td>
+										<td>{{ article.Nom }}</td>
+										<td>{{ article.Description }}</td>
+										<td>{{ article.Prix_Unitaire }} DH</td>
+										<td>{{ article.ID_Fournisseur }}</td>
+										<td>
+											<ul class="d-flex justify-content-center">
+												<li class="mr-3"><a href="{% url 'editarticle' article.ID_Article %}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+												<li><a href="{% url 'delarticle' article.ID_Article %}" class="text-danger"><i class="ti-trash"></i></a></li>
+											</ul>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

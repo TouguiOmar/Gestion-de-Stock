@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Commandes{% endblock %}
+{% block listedevis %}active{% endblock %}
+{% block devis %}active{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-lg-12 mt-5">
+		<div class="card">
+			<div class="card-body">
+				<div class="invoice-area">
+					<div class="invoice-head">
+						<div class="row">
+							<div class="iv-left col-6">
+								<span>Bon de commande : </span>
+							</div>
+							<div class="iv-right col-6 text-md-right">
+								<span>{{ ID_Devis }}</span>
+							</div>
+						</div>
+					</div>
+					<div class="row align-items-center">
+						<div class="col-md-9">
+							<div class="invoice-address">
+								<h3>Moyen de transport</h3>
+								<h5>{{ devis.Transport }}</h5>
+								<p>Marque : {{ devis.Type_Transport }}</p>
+								<p>Chauffeur : {{ devis.Chauffeur }}</p>
+								<p>Matricule : {{ devis.Matricule }}</p>
+							</div>
+							<ul class="invoice-date">
+								<li>Date sortie : {{ devis.Date_Sortie }}</li>
+							</ul>
+						</div>
+						<div class="col-md-3 text-md-left">
+							<div class="invoice-address">
+								<h3>{{ devis.ID_Client.ID_Client }}</h3>
+								<h5>{{ devis.ID_Client.Entreprise }}</h5>
+								<p>Adresse : {{ devis.ID_Client.Adresse }},</p>
+								<p>{{ devis.ID_Client.Description }}</p>
+								<p>Email : {{ devis.ID_Client.Email }}</p>
+								<p>Tel : {{ devis.ID_Client.Tel }}</p>
+							</div>
+							<ul class="invoice-date">
+								<li>Date commande : {{ devis.Date_Devis }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="invoice-table table-responsive mt-5">
+						<table class="table table-bordered table-hover text-right">
+							<thead>
+								<tr class="text-capitalize">
+									<th class="text-center" style="width: 10%;">Article</th>
+									<th class="text-left" style="width: 45%; min-width: 130px;">Quantite</th>
+									<th style="min-width: 100px">Prix</th>
+									<th>total</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for detaildevi in vs %}
+								<tr>
+									<td class="text-center">{{ detaildevi.detaildevi.ID_Article }}</td>
+									<td class="text-left">{{ detaildevi.detaildevi.Quantite }}</td>
+									<td>{{ detaildevi.detaildevi.Prix }} DH</td>
+									<td>{{ detaildevi.Montant }} DH</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="3">total :</td>
+									<td>${{ Montant }}</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+				<div class="invoice-buttons text-right">
+					<a target="_blank" href="{% url 'invoice' ID_Devis %}" class="invoice-btn" style="background: #03A9F4;">Imprimer</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Stock du depot{% endblock %}
+{% block stock %}active{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-12 mt-5">
+		<div class="card">
+			<div class="card-body">
+				<div class="invoice-head">
+					<div class="row">
+						<div class="iv-left col-6">
+							<span>Stock du depot : {{ request.session.ID_Depot }}</span>
+						</div>
+						<div class="iv-right col-6 text-md-right">
+							<span><a href="{% url 'addstock' %}"><button type="button" class="btn btn-flat btn-dark mb-3"><i class="fa fa-plus"></i> &nbsp;Ajouter</button></a></span>
+						</div>
+					</div>
+				</div>
+				<div class="single-table">
+					<div class="table-responsive">
+						<table class="table table-hover progress-table text-center">
+							<thead class="text-uppercase">
+								<tr>
+									<th scope="col">ID_Article</th>
+									<th scope="col">Quantite</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for stock in stocks %}
+									<tr>
+										<td>{{ stock.ID_Article }}</td>
+										<td>{{ stock.Quantite }}</td>
+										<td>
+											<ul class="d-flex justify-content-center">
+												<li class="mr-3"><a href="{% url 'editstock' stock.ID_Depot.ID_Depot stock.ID_Article.ID_Article %}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+												<li><a href="{% url 'delstock' stock.ID_Depot.ID_Depot stock.ID_Article.ID_Article %}" class="text-danger"><i class="ti-trash"></i></a></li>
+											</ul>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

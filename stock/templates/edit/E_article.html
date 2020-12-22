@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Articles{% endblock %}
+{% block article %}active{% endblock %}
+{% block gestion %}active{% endblock %}
+
+{% block body %}
+<form method="post" action="" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-lg-6 col-ml-12">
+			<div class="row">
+				<div class="col-12 mt-5">
+					{% if erreur == 1 %}
+					<div class="alert alert-success" role="alert">
+						<strong>Les modifications ont été effectués avec succès</strong>
+					</div>
+					{% endif %}
+					<div class="card">
+						<div class="card-body">
+							<h4 class="header-title">informations D'article </h4>
+							<div class="form-group django">
+								<label for="example-text-input" class="col-form-label">Tag RFID</label>
+								{{ form.ID_Article }}
+								<small class="form-text text-muted">{{ form.ID_Article.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Nom</label>
+								{{ form.Nom }}
+								<small class="form-text text-muted">{{ form.Nom.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Description</label>
+								{{ form.Description }}
+								<small class="form-text text-muted">{{ form.Description.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Prix Unitaire</label>
+								{{ form.Prix_Unitaire }}
+								<small class="form-text text-muted">{{ form.Prix_Unitaire.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Fournisseur</label>
+								{{ form.ID_Fournisseur }}
+								<small class="form-text text-muted">{{ form.ID_Fournisseur.errors }}</small>
+								<button type="submit" class="btn btn-flat btn-dark mt-4 pr-4 pl-4">Enregistrer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6 col-ml-12">
+			<div class="row">
+				<div class="col-12 mt-5">
+					<div class="card">
+						<div class="card-body">
+							<div class="letest-news mt-5">
+								<div class="single-post mb-xs-40 mb-sm-40">
+									<div class="lts-thumb">
+										<img src="/media/{{ form.Photo.value }}" alt="post thumb">
+									</div>
+									<div class="lts-content">
+										<label for="example-text-input" class="col-form-label">Changer la photo</label>
+										<input type="file" class="form-control" name="{{ form.Photo.name }}">
+										<small class="form-text text-muted">{{ form.Photo.errors }}</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}

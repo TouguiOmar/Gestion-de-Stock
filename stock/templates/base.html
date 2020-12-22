@@ -1,0 +1,210 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>WMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/metisMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.min.css' %}">
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static 'assets/css/typography.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/default-css.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <script src="{% static 'assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+	<style type="text/css">
+	.django input:focus, select:focus {
+		color: #495057;
+		background-color: #fff;
+		border-color: #80bdff;
+		outline: 0;
+	}
+	.django input, select {
+		display: block;
+		width: 100%;
+		padding: .375rem .75rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		color: #495057;
+		background-color: #fff;
+		background-clip: padding-box;
+		border: 1px solid #ced4da;
+		transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	}
+	.text-muted {
+		color: #dc3545!important;
+	}
+	select:not([size]):not([multiple]) {
+		height: calc(2.25rem + 2px);
+	}
+	.metismenu li a i {
+		color: #9e9e9e;
+	}
+	:root {
+		--primary-color: #03A9F4;
+	}
+	.user-profile {
+		background: #303641;
+	}
+	.btn-dark {
+		background-color: #03A9F4;
+		border-color: #03A9F4;
+	}
+	</style>
+</head>
+
+<body>
+
+	<div id="preloader">
+		<div class="loader"></div>
+	</div>
+	<div class="page-container">
+		<div class="sidebar-menu">
+			<div class="sidebar-header">
+				<div class="logo">
+					<a href="{% url 'accueil' %}"><img src="{% static 'assets/images/logo.png' %}" alt="logo"></a>
+				</div>
+			</div>
+			<div class="main-menu">
+				<div class="menu-inner">
+					<nav>
+						<ul class="metismenu" id="menu">
+							<li class="{% block accueil %}{% endblock %}">
+								<a href="{% url 'accueil' %}"><i class="ti-home"></i> <span>Accueil</span></a>
+							</li>
+							<li class="{% block gestion %}{% endblock %}">
+								<a href="javascript:void(0)" aria-expanded="true"><i class="ti-settings"></i>
+									<span>Gestion</span></a>
+								<ul class="collapse">
+
+									{% if request.session.Type == 1 %}
+
+									<li class="{% block administrateur %}{% endblock %}">
+										<a href="{% url 'administrateur' %}"><i class="ti-user"></i> <span>administrateurs</span></a>
+									</li>
+									<li class="{% block depot %}{% endblock %}">
+										<a href="{% url 'depot' %}"><i class="ti-map-alt"></i> <span>dépôts</span></a>
+									</li>
+
+									{% endif %}
+
+									<li class="{% block fournisseur %}{% endblock %}">
+										<a href="{% url 'fournisseur' %}"><i class="ti-import"></i> <span>fournisseurs</span></a>
+									</li>
+									<li class="{% block client %}{% endblock %}">
+										<a href="{% url 'client' %}"><i class="ti-export"></i> <span>clients</span></a>
+									</li>
+									<li class="{% block article %}{% endblock %}">
+										<a href="{% url 'article' %}"><i class="ti-view-grid"></i> <span>articles</span></a>
+									</li>
+								</ul>
+							</li>
+							<li class="{% block listecommande %}{% endblock %}">
+								<a href="javascript:void(0)" aria-expanded="true"><i class="ti-shopping-cart"></i>
+									<span>Devis</span></a>
+								<ul class="collapse">
+									<li class="{% block addcommande %}{% endblock %}">
+										<a href="{% url 'addcommande' %}"><i class="ti-plus"></i> <span>Ajouter un devis</span></a>
+									</li>
+									<li class="{% block commande %}{% endblock %}">
+										<a href="{% url 'commande' %}"><i class="ti-shopping-cart-full"></i> <span>Liste des devis</span></a>
+									</li>
+									<li class="{% block commandeatt %}{% endblock %}">
+										<a href="{% url 'commandeatt' %}"><i class="ti-shopping-cart-full"></i> <span>Devis en attente</span></a>
+									</li>
+								</ul>
+							</li>
+							<li class="{% block listedevis %}{% endblock %}">
+								<a href="javascript:void(0)" aria-expanded="true"><i class="ti-shopping-cart"></i>
+									<span>Commandes</span></a>
+								<ul class="collapse">
+									<li class="{% block adddevis %}{% endblock %}">
+										<a href="{% url 'adddevis' %}"><i class="ti-plus"></i> <span>Ajouter une commande</span></a>
+									</li>
+									<li class="{% block devis %}{% endblock %}">
+										<a href="{% url 'devis' %}"><i class="ti-shopping-cart-full"></i> <span>Liste des commandes</span></a>
+									</li>
+								</ul>
+							</li>
+
+							<li class="{% block stock %}{% endblock %}">
+								<a href="{% url 'stock' %}"><i class="ti-view-grid"></i> <span>Stock du dépôt</span></a>
+							</li>
+
+							<li class="{% block produit %}{% endblock %}">
+								<a href="{% url 'produit' %}"><i class="ti-eye"></i> <span>Traçabilité d'un produit</span></a>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<div class="main-content">
+			<div class="page-title-area">
+				<div class="row align-items-center">
+					<div class="col-sm-6">
+						<div class="breadcrumbs-area clearfix">
+							<div class="nav-btn pull-left">
+								<span></span>
+								<span></span>
+								<span></span>
+							</div>
+							<h4 class="page-title pull-left">WMS</h4>
+							<ul class="breadcrumbs pull-left">
+								<li><a href="{% url 'accueil' %}">Accueil</a></li>
+								<li><span>{% block title %}{% endblock %}</span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6 clearfix">
+						<div class="user-profile pull-right">
+							<h4 class="user-name dropdown-toggle" data-toggle="dropdown">{{ request.session.Prenom }} {{ request.session.Nom }}<i class="fa fa-angle-down"></i></h4>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{% url 'logout' %}">Déconnexion</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="main-content-inner">
+				{% block body %}{% endblock %}
+			</div>
+		</div>
+		<footer>
+			<div class="footer-area">
+				<p><a href="{% url 'accueil' %}">WMS</a></p>
+			</div>
+		</footer>
+	</div>
+
+	<script src="{% static 'assets/js/vendor/jquery-2.2.4.min.js' %}"></script>
+	<script src="{% static 'assets/js/popper.min.js' %}"></script>
+	<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'assets/js/metisMenu.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+	<script>
+	zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+	ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+	</script>
+	<script src="{% static 'assets/js/line-chart.js' %}"></script>
+	<script src="{% static 'assets/js/pie-chart.js' %}"></script>
+	<script src="{% static 'assets/js/plugins.js' %}"></script>
+	<script src="{% static 'assets/js/scripts.js' %}"></script>
+	<script src="{% static 'assets/js/vendor/test.js' %}"></script>
+</body>
+
+</html>

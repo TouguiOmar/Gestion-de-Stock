@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Commandes{% endblock %}
+{% block listedevis %}active{% endblock %}
+{% block listedevis %}active{% endblock %}
+
+{% block body %}
+<form method="post" action="" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-lg-6 col-ml-12">
+			<div class="row">
+				<div class="col-12 mt-5">
+					{{ form.errors }}
+					{% if erreur == 1 %}
+					<div class="alert alert-success" role="alert">
+						<strong>L'ajout a été effectué avec succès.</strong>
+					</div>
+					{% endif %}
+					<div class="card">
+						<div class="card-body">
+							<h4 class="header-title">informations </h4>
+							<div class="form-group django">
+								<input type="hidden" name="{{ form.ID_Devis.name }}" value="{{ form.ID_Devis.value }}">
+								<label for="example-text-input" class="col-form-label">ID_Article</label>
+								{{ form.ID_Article }}
+								<small class="form-text text-muted">{{ form.ID_Article.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Quantite</label>
+								{{ form.Quantite }}
+								<small class="form-text text-muted">{{ form.Quantite.errors }}</small>
+								<div class="form-control-feedback" id="test"></div>
+								<button type="submit" class="btn btn-flat btn-dark mt-4 pr-4 pl-4">Enregistrer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Administrateurs{% endblock %}
+{% block administrateur %}active{% endblock %}
+{% block gestion %}active{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-12 mt-5">
+		<div class="card">
+			<div class="card-body">
+				<div class="invoice-head">
+					<div class="row">
+						<div class="iv-left col-6">
+							<span>Liste des administrateurs</span>
+						</div>
+						<div class="iv-right col-6 text-md-right">
+							<span><a href="{% url 'addadministrateur' %}"><button type="button" class="btn btn-flat btn-dark mb-3"><i class="fa fa-plus"></i> &nbsp;Ajouter</button></a></span>
+						</div>
+					</div>
+				</div>
+				<div class="single-table">
+					<div class="table-responsive">
+						<table class="table table-hover progress-table text-center">
+							<thead class="text-uppercase">
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Nom</th>
+									<th scope="col">Prenom</th>
+									<th scope="col">Genre</th>
+									<th scope="col">Email</th>
+									<th scope="col">Téléphone</th>
+									<th scope="col">Dépôt</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for administrateur in administrateurs %}
+									{% if administrateur.ID_Administrateur != request.session.ID_Administrateur %}
+									<tr>
+										<td>
+											<img class="avatar user-thumb" src="{% static 'assets/images/author.jpg' %}" alt="avatar" width="50">
+										</td>
+										<td>{{ administrateur.Nom }}</td>
+										<td>{{ administrateur.Prenom }}</td>
+										<td>{{ administrateur.Genre }}</td>
+										<td>{{ administrateur.Email }}</td>
+										<td>{{ administrateur.Tel }}</td>
+										<td>{{ administrateur.ID_Depot.ID_Depot }}</td>
+										<td>
+											<ul class="d-flex justify-content-center">
+												<li class="mr-3"><a href="{% url 'editadministrateur' administrateur.ID_Administrateur %}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+												<li><a href="{% url 'deladministrateur' administrateur.ID_Administrateur %}" class="text-danger"><i class="ti-trash"></i></a></li>
+											</ul>
+										</td>
+									</tr>
+									{% endif %}
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

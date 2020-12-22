@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Dépôts{% endblock %}
+{% block depot %}active{% endblock %}
+{% block gestion %}active{% endblock %}
+
+{% block body %}
+<form method="post" action="" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-lg-6 col-ml-12">
+			<div class="row">
+				<div class="col-12 mt-5">
+					{% if erreur == 1 %}
+					<div class="alert alert-success" role="alert">
+						<strong>Les modifications ont été effectués avec succès</strong>
+					</div>
+					{% endif %}
+					<div class="card">
+						<div class="card-body">
+							<h4 class="header-title">informations du depôt </h4>
+							<div class="form-group django">
+								<label for="example-text-input" class="col-form-label">Nom</label>
+								{{ form.ID_Depot }}
+								<small class="form-text text-muted">{{ form.ID_Depot.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Description</label>
+								{{ form.Description }}
+								<small class="form-text text-muted">{{ form.Description.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Adresse</label>
+								{{ form.Adresse }}
+								<small class="form-text text-muted">{{ form.Adresse.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Ville</label>
+								{{ form.Nom }}
+								<small class="form-text text-muted">{{ form.Nom.errors }}</small>
+								<button type="submit" class="btn btn-flat btn-dark mt-4 pr-4 pl-4">Enregistrer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}

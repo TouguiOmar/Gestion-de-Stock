@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Fournisseurs{% endblock %}
+{% block fournisseur %}active{% endblock %}
+{% block gestion %}active{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-12 mt-5">
+		<div class="card">
+			<div class="card-body">
+				<div class="invoice-head">
+					<div class="row">
+						<div class="iv-left col-6">
+							<span>Liste des fournisseurs</span>
+						</div>
+						<div class="iv-right col-6 text-md-right">
+							<span><a href="{% url 'addfournisseur' %}"><button type="button" class="btn btn-flat btn-dark mb-3"><i class="fa fa-plus"></i> &nbsp;Ajouter</button></a></span>
+						</div>
+					</div>
+				</div>
+				<div class="single-table">
+					<div class="table-responsive">
+						<table class="table table-hover progress-table text-center">
+							<thead class="text-uppercase">
+								<tr>
+									<th scope="col">Nom</th>
+									<th scope="col">Entreprise</th>
+									<th scope="col">Email</th>
+									<th scope="col">Tel</th>
+									<th scope="col">Adresse</th>
+									<th scope="col">Ville</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for fournisseur in fournisseurs %}
+									<tr>
+										<th scope="row">{{ fournisseur.ID_Fournisseur }}</th>
+										<td>{{ fournisseur.Entreprise }}</td>
+										<td>{{ fournisseur.Email }}</td>
+										<td>{{ fournisseur.Tel }}</td>
+										<td>{{ fournisseur.Adresse }}</td>
+										<td>{{ fournisseur.Description }}</td>
+										<td>
+											<ul class="d-flex justify-content-center">
+												<li class="mr-3"><a href="{% url 'editfournisseur' fournisseur.ID_Fournisseur %}" class="text-secondary"><i class="fa fa-edit"></i></a></li>
+												<li><a href="{% url 'delfournisseur' fournisseur.ID_Fournisseur %}" class="text-danger"><i class="ti-trash"></i></a></li>
+											</ul>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

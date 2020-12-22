@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Dépôts{% endblock %}
+{% block produit %}active{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-6 col-ml-6">
+		<div class="row">
+			<div class="col-12 mt-5">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="header-title">Choisir un article</h4>
+						<div class="form-group django bbb">
+							<select>
+								<option value="">----------</option>
+								{% for article in articles %}
+									<option value="{{ article.ID_Article}}">{{ article.ID_Article}} - {{ article.Nom }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row" id="retproduit">
+	
+</div>
+
+
+
+
+{% endblock %}

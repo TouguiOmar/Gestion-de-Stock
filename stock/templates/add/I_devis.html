@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Commandes{% endblock %}
+{% block listedevis %}active{% endblock %}
+{% block adddevis %}active{% endblock %}
+
+{% block body %}
+<form method="post" action="" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-lg-6 col-ml-12">
+			<div class="row">
+				<div class="col-12 mt-5">
+					{% if erreur == 1 %}
+					<div class="alert alert-success" role="alert">
+						<strong>L'ajout a été effectué avec succès.</strong>
+					</div>
+					{% endif %}
+					{% if erreur == 2 %}
+					<div class="alert alert-danger" role="alert">
+						<strong>Ce devis n'est pas valable car la quantite des produits n'est pas disponible dans le stock.</strong>
+					</div>
+					{% endif %}
+					<div class="card">
+						<div class="card-body">
+							<h4 class="header-title">informations du commande </h4>
+							<div class="form-group django">
+								<label for="example-text-input" class="col-form-label">Nom</label>
+								{{ form.ID_Devis }}
+								<small class="form-text text-muted">{{ form.ID_Devis.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Devis</label>
+								<select name="ID_Commande" required>
+									<option value="">----------</option>
+									{% for commande in commandes %}
+										<option value="{{ commande.ID_Commande }}">{{ commande.ID_Commande }}</option>
+									{% endfor %}
+								</select>
+								<button type="submit" class="btn btn-flat btn-dark mt-4 pr-4 pl-4">Enregistrer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6 col-ml-12">
+			<div class="row">
+				<div class="col-12 mt-5">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="header-title">informations du transport </h4>
+							<div class="form-group django">
+								<label for="example-text-input" class="col-form-label">Transport</label>
+								{{ form.Transport }}
+								<small class="form-text text-muted">{{ form.Transport.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Marque</label>
+								{{ form.Type_Transport }}
+								<small class="form-text text-muted">{{ form.Type_Transport.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Chauffeur</label>
+								{{ form.Chauffeur }}
+								<small class="form-text text-muted">{{ form.Chauffeur.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Matricule</label>
+								{{ form.Matricule }}
+								<small class="form-text text-muted">{{ form.Matricule.errors }}</small>
+								<label for="example-text-input" class="col-form-label">Date sortie</label>
+								{{ form.Date_Sortie }}
+								<small class="form-text text-muted">{{ form.Date_Sortie.errors }}</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}
